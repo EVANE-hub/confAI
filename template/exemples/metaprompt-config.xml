@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metaprompt_config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata>
+    <name>Générateur de quiz</name>
+    <description>Créer des quiz interactifs personnalisés</description>
+    <version>2.0</version>
+    <tags>
+      <tag>quiz</tag>
+      <tag>évaluation</tag>
+      <tag>interactif</tag>
+    </tags>
+  </metadata>
+  
+  <prompt_template><![CDATA[
+    Générez un quiz de {{question_count}} questions sur le thème "{{topic}}".
+    
+    Public cible : {{target_audience}}
+    Niveau de difficulté : {{difficulty_level}}/5
+    
+    {{#question_types}}
+    Types de questions à utiliser : {{question_types}}
+    {{/question_types}}
+    
+    {{#time_limit}}
+    Temps limite suggéré : {{time_limit}} minutes
+    {{/time_limit}}
+    
+    {{#include_explanations}}
+    Incluez des explications détaillées pour chaque réponse.
+    {{/include_explanations}}
+  ]]></prompt_template>
+  
+  <variables>
+    <variable name="topic" required="true">
+      <type>text</type>
+      <label>Sujet du quiz</label>
+      <validation>
+        <min_length>3</min_length>
+        <max_length>50</max_length>
+      </validation>
+      <placeholder>Ex: Histoire de France au XVIIe siècle</placeholder>
+    </variable>
+    
+    <variable name="question_count" required="true">
+      <type>number</type>
+      <label>Nombre de questions</label>
+      <min>5</min>
+      <max>50</max>
+      <default>10</default>
+      <step>1</step>
+    </variable>
+    
+    <variable name="target_audience" required="true">
+      <type>select</type>
+      <label>Public cible</label>
+      <options>
+        <option value="elementary">École élémentaire</option>
+        <option value="middle_school">Collège</option>
+        <option value="high_school">Lycée</option>
+        <option value="adult">Formation adulte</option>
+      </options>
+    </variable>
+    
+    <variable name="difficulty_level" required="true">
+      <type>range</type>
+      <label>Niveau de difficulté</label>
+      <min>1</min>
+      <max>5</max>
+      <default>3</default>
+      <labels>
+        <label value="1">Très facile</label>
+        <label value="3">Moyen</label>
+        <label value="5">Très difficile</label>
+      </labels>
+    </variable>
+    
+    <variable name="question_types" required="false">
+      <type>checkbox_group</type>
+      <label>Types de questions</label>
+      <options>
+        <option value="multiple_choice">Choix multiple</option>
+        <option value="true_false">Vrai/Faux</option>
+        <option value="fill_blank">Texte à trous</option>
+        <option value="short_answer">Réponse courte</option>
+      </options>
+      <default>["multiple_choice", "true_false"]</default>
+    </variable>
+    
+    <variable name="time_limit" required="false">
+      <type>select</type>
+      <label>Temps limite (optionnel)</label>
+      <options>
+        <option value="">Pas de limite</option>
+        <option value="10">10 minutes</option>
+        <option value="20">20 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="45">45 minutes</option>
+      </options>
+    </variable>
+    
+    <variable name="include_explanations" required="false">
+      <type>checkbox</type>
+      <label>Inclure des explications</label>
+      <default>true</default>
+    </variable>
+  </variables>
+  
+  <ui_configuration>
+    <theme>education</theme>
+    <layout>vertical</layout>
+    <sections>
+      <section name="Configuration de base" order="1">
+        <fields>topic,question_count,target_audience</fields>
+      </section>
+      <section name="Paramètres avancés" order="2" collapsible="true">
+        <fields>difficulty_level,question_types,time_limit,include_explanations</fields>
+      </section>
+    </sections>
+  </ui_configuration>
+</metaprompt_config>

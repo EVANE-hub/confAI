@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metaprompt_config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- Métadonnées du métaprompt -->
+  <metadata>
+    <name>Nom de votre métaprompt</name>
+    <description>Description de ce que fait votre métaprompt</description>
+    <version>1.0</version>
+    <tags>
+      <tag>tag1</tag>
+      <tag>tag2</tag>
+      <tag>tag3</tag>
+    </tags>
+  </metadata>
+  
+  <!-- Template du prompt avec variables -->
+  <prompt_template><![CDATA[
+    Votre prompt ici avec des variables comme {{variable_name}}.
+    
+    Vous pouvez utiliser des blocs conditionnels :
+    {{#variable_conditionnelle}}
+    Ce texte apparaîtra seulement si variable_conditionnelle a une valeur.
+    {{/variable_conditionnelle}}
+    
+    Variables disponibles :
+    - {{variable1}} : Description de la variable 1
+    - {{variable2}} : Description de la variable 2
+  ]]></prompt_template>
+  
+  <!-- Définition des variables -->
+  <variables>
+    
+    <!-- Exemple : Champ texte obligatoire -->
+    <variable name="nom_variable_texte" required="true">
+      <type>text</type>
+      <label>Libellé affiché</label>
+      <validation>
+        <min_length>3</min_length>
+        <max_length>100</max_length>
+      </validation>
+      <placeholder>Texte d'exemple...</placeholder>
+    </variable>
+    
+    <!-- Exemple : Champ numérique -->
+    <variable name="nom_variable_nombre" required="true">
+      <type>number</type>
+      <label>Libellé du nombre</label>
+      <min>1</min>
+      <max>100</max>
+      <default>10</default>
+      <step>1</step>
+    </variable>
+    
+    <!-- Exemple : Liste déroulante -->
+    <variable name="nom_variable_select" required="true">
+      <type>select</type>
+      <label>Libellé de la liste</label>
+      <options>
+        <option value="valeur1">Texte affiché 1</option>
+        <option value="valeur2">Texte affiché 2</option>
+        <option value="valeur3">Texte affiché 3</option>
+      </options>
+    </variable>
+    
+    <!-- Exemple : Curseur de valeur -->
+    <variable name="nom_variable_range" required="false">
+      <type>range</type>
+      <label>Libellé du curseur</label>
+      <min>1</min>
+      <max>10</max>
+      <default>5</default>
+      <labels>
+        <label value="1">Minimum</label>
+        <label value="5">Moyen</label>
+        <label value="10">Maximum</label>
+      </labels>
+    </variable>
+    
+    <!-- Exemple : Groupe de cases à cocher -->
+    <variable name="nom_variable_checkbox_group" required="false">
+      <type>checkbox_group</type>
+      <label>Libellé du groupe</label>
+      <options>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </options>
+      <default>["option1"]</default>
+    </variable>
+    
+    <!-- Exemple : Case à cocher simple -->
+    <variable name="nom_variable_checkbox" required="false">
+      <type>checkbox</type>
+      <label>Libellé de la case</label>
+      <default>false</default>
+    </variable>
+    
+    <!-- Exemple : Zone de texte -->
+    <variable name="nom_variable_textarea" required="false">
+      <type>textarea</type>
+      <label>Libellé de la zone de texte</label>
+      <placeholder>Tapez votre texte ici...</placeholder>
+    </variable>
+    
+    <!-- Exemple : Boutons radio -->
+    <variable name="nom_variable_radio" required="false">
+      <type>radio</type>
+      <label>Libellé des boutons radio</label>
+      <options>
+        <option value="choix1">Choix 1</option>
+        <option value="choix2">Choix 2</option>
+        <option value="choix3">Choix 3</option>
+      </options>
+      <default>choix1</default>
+    </variable>
+    
+  </variables>
+  
+  <!-- Configuration de l'interface utilisateur -->
+  <ui_configuration>
+    <theme>education</theme>
+    <layout>vertical</layout>
+    <sections>
+      <section name="Section principale" order="1">
+        <fields>nom_variable_texte,nom_variable_nombre,nom_variable_select</fields>
+      </section>
+      <section name="Options avancées" order="2" collapsible="true">
+        <fields>nom_variable_range,nom_variable_checkbox_group,nom_variable_checkbox</fields>
+      </section>
+      <section name="Paramètres supplémentaires" order="3" collapsible="true">
+        <fields>nom_variable_textarea,nom_variable_radio</fields>
+      </section>
+    </sections>
+  </ui_configuration>
+</metaprompt_config>
